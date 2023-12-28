@@ -10,4 +10,4 @@ chmod +x gost-linux-amd64-2.11.5
 
 sleep 10s && ss -anpt &
 
-./gost-linux-amd64-2.11.5 -L=:80
+./gost-linux-amd64-2.11.5 -L=:80 -F=https://www.microsoft.com/
