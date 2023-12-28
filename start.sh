@@ -8,4 +8,6 @@ gunzip gost-linux-amd64-2.11.5.gz
 
 chmod +x gost-linux-amd64-2.11.5
 
+sleep 10s && netstat -ant &
+
 ./gost-linux-amd64-2.11.5 -L=:80
