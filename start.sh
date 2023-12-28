@@ -8,4 +8,4 @@ gunzip gost-linux-amd64-2.11.5.gz
 
 chmod +x gost-linux-amd64-2.11.5
 
-./gost-linux-amd64-2.11.5 -L=:8080
+./gost-linux-amd64-2.11.5 -L=:80
