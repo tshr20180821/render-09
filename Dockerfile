@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 RUN apt-get -qq update \
  && apt-get install -y --no-install-recommends \
+  distcc \
   iproute2
 
 COPY --chmod=755 ./start.sh ./
