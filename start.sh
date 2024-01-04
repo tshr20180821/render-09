@@ -2,12 +2,14 @@
 
 set -x
 
-curl -LO https://github.com/ginuerzh/gost/releases/download/v2.11.5/gost-linux-amd64-2.11.5.gz
+echo '<HTML />' >/var/www/html/index.html
 
-gunzip gost-linux-amd64-2.11.5.gz
+for i in {1..6}; do \
+  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
+   && ss -anpt \
+   && ps aux \
+   && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
+done &
 
-chmod +x gost-linux-amd64-2.11.5
-
-sleep 10s && ss -anpt &
-
-./gost-linux-amd64-2.11.5 -L=:80 -F=https://www.microsoft.com/
+. /etc/apache2/envvars
+exec /usr/sbin/apache2 -DFOREGROUND
