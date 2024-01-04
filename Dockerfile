@@ -7,7 +7,8 @@ WORKDIR /usr/src/app
 RUN apt-get -qq update \
  && apt-get install -y --no-install-recommends \
   distcc \
-  iproute2
+  iproute2 \
+  netcat-openbsd
 
 COPY --chmod=755 ./start.sh ./
 
