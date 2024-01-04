@@ -11,6 +11,6 @@ RUN apt-get -qq update \
   iproute2 \
   netcat-openbsd
 
-COPY --chmod=755 ./start.sh ./
+COPY --chmod=755 ./*.sh ./
 
 ENTRYPOINT ["/bin/bash","/usr/src/app/start.sh"]
