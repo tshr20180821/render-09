@@ -13,5 +13,7 @@ done &
 
 sleep 5s && ./build_memcached.sh &
 
+netcat --help
+
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
