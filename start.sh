@@ -27,7 +27,7 @@ ncat --sh-exec "/usr/src/app/distccd_wrapper.sh" -4ukl 3632 --keep-open &
 
 sleep 5s && ss -anpto && ps aux &
 
-# sleep 10s && ./build_memcached.sh &
+sleep 10s && ./build_memcached.sh &
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
