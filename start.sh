@@ -26,9 +26,9 @@ ls -lang /usr/bin/
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
-sleep 5s && ss -anpto && ps aux
+sleep 5s && ss -anpto && ps aux &
 
-sleep 10s && ./build_memcached.sh &
+# sleep 10s && ./build_memcached.sh &
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
