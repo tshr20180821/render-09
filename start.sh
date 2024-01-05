@@ -11,12 +11,13 @@ for i in {1..3}; do \
    && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
-netcat --help
+#netcat --help
+nc -h
 
 distcc --help
 distccd --help
 
-netcat -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
 sleep 5s && ss -anpt && ps aux
 
