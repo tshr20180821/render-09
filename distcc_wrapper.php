@@ -9,7 +9,7 @@ error_log("data finish");
 $data = base64_decode($data);
 
 // exec /usr/bin/distccd --log-level warning --log-file ${DISTCC_LOG} $@
-$res = passthru("exec /usr/bin/distccd --log-level warning --log-file /var/www/html/distcc_log.txt ${data}");
+$res = shell_exec("exec /usr/bin/distccd --log-level warning --log-file /var/www/html/distcc_log.txt ${data}");
 
 error_log("res start");
 error_log(base64_encode($res));
