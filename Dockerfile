@@ -9,6 +9,7 @@ RUN apt-get -qq update \
   build-essential \
   distcc \
   iproute2 \
+  libevent-dev \
   libsasl2-dev \
   libsasl2-modules \
   netcat-openbsd \
