@@ -12,19 +12,18 @@ for i in {1..3}; do \
 done &
 
 #netcat --help
-nc -h
-
-whereis netcat
-whereis nc
-
-ls -lang /usr/bin/
+#nc -h
+ncat --help
 
 # distcc --help
 # distccd --help
 
 # nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
-strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+# strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+
+ncat --sh-exec "ncat -u 127.0.0.1 3632" -4kl 3632 --keep-open &
+ncat --sh-exec "/usr/src/app/distccd_wrapper.sh" -4ukl 3632 --keep-open &
 
 sleep 5s && ss -anpto && ps aux &
 
