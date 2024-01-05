@@ -4,16 +4,19 @@ set -x
 
 echo '<HTML />' >/var/www/html/index.html
 
-for i in {1..6}; do \
+for i in {1..3}; do \
   for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
    && ss -anpt \
    && ps aux \
    && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
-sleep 5s && ./build_memcached.sh &
+# sleep 5s && ./build_memcached.sh &
 
 netcat --help
+
+distcc --help
+distccd --help
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
