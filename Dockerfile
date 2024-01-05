@@ -14,6 +14,7 @@ RUN apt-get -qq update \
   libsasl2-modules \
   netcat-traditional \
   sasl2-bin \
+  strace \
   zlib1g-dev
 
 COPY ./*.php /var/www/html/
