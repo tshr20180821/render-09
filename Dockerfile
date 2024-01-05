@@ -12,7 +12,7 @@ RUN apt-get -qq update \
   libevent-dev \
   libsasl2-dev \
   libsasl2-modules \
-  netcat-openbsd \
+  netcat-traditional \
   sasl2-bin \
   zlib1g-dev
 
