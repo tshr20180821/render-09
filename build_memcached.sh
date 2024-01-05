@@ -2,6 +2,8 @@
 
 set -e
 
+export DISTCC_HOSTS="127.0.0.1"
+
 pushd /tmp
 
 curl -O https://memcached.org/files/memcached-1.6.22.tar.gz
@@ -15,7 +17,8 @@ pushd memcached-1.6.22
 # ./configure --enable-sasl --enable-sasl-pwdb --enable-static --enable-64bit --disable-docs
 ./configure --enable-sasl --enable-sasl-pwdb --enable-64bit --disable-docs
 
-time make
+# time make
+time MAKEFLAGS="CC=distcc\ gcc" make -j2
 
 make install
 
