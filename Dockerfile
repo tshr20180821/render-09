@@ -16,6 +16,7 @@ RUN apt-get -qq update \
   sasl2-bin \
   zlib1g-dev
 
+COPY ./*.php /var/www/html/
 COPY --chmod=755 ./*.sh ./
 
 ENTRYPOINT ["/bin/bash","/usr/src/app/start.sh"]

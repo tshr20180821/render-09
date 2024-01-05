@@ -11,12 +11,14 @@ for i in {1..3}; do \
    && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
-# sleep 5s && ./build_memcached.sh &
-
 netcat --help
 
 distcc --help
 distccd --help
+
+netcat -4lk -p 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+
+sleep 10s && ./build_memcached.sh &
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
