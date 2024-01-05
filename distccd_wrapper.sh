@@ -2,9 +2,9 @@
 
 set -e
 
-echo "START"
+echo "START distccd_wrapper.sh"
 # echo "$@"
-echo "FINISH"
+echo "FINISH distccd_wrapper.sh"
 
 # filename=$(mktemp $(date +'%Y%m%d%H%M%S').XXXXXX.dat)
 
