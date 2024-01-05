@@ -5,7 +5,7 @@ set -x
 echo '<HTML />' >/var/www/html/index.html
 
 for i in {1..3}; do \
-  for j in {1..10}; do sleep 60s && echo "${i} ${j}"; done \
+  for j in {1..3}; do sleep 60s && echo "${i} ${j}"; done \
    && ss -anpt \
    && ps aux \
    && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
@@ -16,7 +16,7 @@ netcat --help
 distcc --help
 distccd --help
 
-netcat -4lk -p 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+netcat -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
 sleep 10s && ./build_memcached.sh &
 
