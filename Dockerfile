@@ -9,7 +9,9 @@ RUN apt-get -qq update \
   build-essential \
   distcc \
   iproute2 \
-  netcat-openbsd
+  libsasl2-modules \
+  netcat-openbsd \
+  zlib1g-dev
 
 COPY --chmod=755 ./*.sh ./
 
