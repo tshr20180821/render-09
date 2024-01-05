@@ -22,7 +22,7 @@ ncat --help
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
-exec /usr/bin/distccd --log-level debug --log-file /var/www/html/distccd_log.txt
+# exec /usr/bin/distccd --log-level debug --log-file /var/www/html/distccd_log.txt
 
 # ncat -c "ncat -u 127.0.0.1 3632" -4nkl 127.0.0.1 3632 --no-shutdown &
 # ncat -e "/usr/src/app/distccd_wrapper.sh" -4ukl 127.0.0.1 3632 --no-shutdown &
