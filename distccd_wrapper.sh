@@ -3,7 +3,7 @@
 set -e
 
 echo "START"
-echo "$@"
+# echo "$@"
 echo "FINISH"
 
 # filename=$(mktemp $(date +'%Y%m%d%H%M%S').XXXXXX.dat)
