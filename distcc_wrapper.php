@@ -12,7 +12,7 @@ $data = base64_decode($data);
 $res = shell_exec("exec /usr/bin/distccd --log-level warning --log-file /var/www/html/distcc_log.txt ${data}");
 
 error_log("res start");
-error_log(base64_encode($res));
+error_log(strlen(base64_encode($res)));
 error_log("res finish");
 
 echo base64_encode($res);
