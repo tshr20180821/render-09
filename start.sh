@@ -18,7 +18,7 @@ distcc --help
 distccd --help
 
 # nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
-nc -l -p 3632 -k -s 127.0.0.1 -c /usr/src/app/distccd_wrapper.sh &
+nc -l -p 3632 -k -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
 sleep 5s && ss -anpt && ps aux
 
