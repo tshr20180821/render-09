@@ -18,9 +18,6 @@ ncat --help
 # distcc --help
 # distccd --help
 
-touch /var/www/html/distccd_log.txt
-chmod 666 /var/www/html/distccd_log.txt
-
 # nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
