@@ -17,6 +17,8 @@ pushd memcached-1.6.22
 # ./configure --enable-sasl --enable-sasl-pwdb --enable-static --enable-64bit --disable-docs
 ./configure --enable-sasl --enable-sasl-pwdb --enable-64bit --disable-docs
 
+ss -anpt
+
 # time make
 time MAKEFLAGS="CC=distcc\ gcc" make -j2
 
