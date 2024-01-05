@@ -10,7 +10,7 @@ $data = base64_decode($data);
 
 // exec /usr/bin/distccd --log-level warning --log-file ${DISTCC_LOG} $@
 # $res = shell_exec("exec /usr/bin/distccd --log-level warning --log-file /var/www/html/distcc_log.txt ${data}");
-$handle = popen("exec /usr/bin/distccd --log-level debug --log-file /var/www/html/distcc_log.txt " . $data, "rb");
+$handle = popen("exec /usr/bin/distccd --log-level debug --log-file /var/www/html/distccd_log.txt " . $data, "rb");
 $res = '';
 while (!feof($handle)) {
     $res .= fread($handle, 8192);
