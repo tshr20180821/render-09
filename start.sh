@@ -11,7 +11,7 @@ for i in {1..6}; do \
    && curl -sS -A "health check" https://"${RENDER_EXTERNAL_HOSTNAME}"/; \
 done &
 
-./build_memcached.sh &
+sleep 5s && ./build_memcached.sh &
 
 . /etc/apache2/envvars
 exec /usr/sbin/apache2 -DFOREGROUND
