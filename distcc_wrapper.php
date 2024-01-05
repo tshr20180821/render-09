@@ -5,6 +5,7 @@ error_log("start distcc_wrapper.php");
 $data = file_get_contents('php://input');
 error_log("data start");
 error_log(strlen($data));
+error_log(base64_decode($data));
 error_log("data finish");
 $data = base64_decode($data);
 
