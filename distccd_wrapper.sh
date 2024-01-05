@@ -7,7 +7,7 @@ echo "START distccd_wrapper.sh" >&2
 filename=$(mktemp $(date +'%Y%m%d%H%M%S').XXXXXX.dat)
 
 echo ${filename} >&2
-echo ${#$@} > &2
+echo ${#$@} >&2
 
 echo -n "$@" | base64 >${filename}
 
