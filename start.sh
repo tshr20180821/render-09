@@ -18,7 +18,8 @@ distcc --help
 distccd --help
 
 # nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
-nc -l -p 3632 -k -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+# nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
+strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
 sleep 5s && ss -anpto && ps aux
 
