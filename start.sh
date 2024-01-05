@@ -26,7 +26,7 @@ exec /usr/bin/distccd --log-level debug --log-file /var/www/html/distccd_log.txt
 
 # ncat -c "ncat -u 127.0.0.1 3632" -4nkl 127.0.0.1 3632 --no-shutdown &
 # ncat -e "/usr/src/app/distccd_wrapper.sh" -4ukl 127.0.0.1 3632 --no-shutdown &
-ncat -e "/usr/src/app/distccd_wrapper.sh" -4kl 127.0.0.1 3632 --no-shutdown &
+ncat -e "exec /usr/bin/distccd --log-level debug " -4ukl 127.0.0.1 3632 --no-shutdown &
 
 sleep 5s && ss -anpto && ps aux &
 
