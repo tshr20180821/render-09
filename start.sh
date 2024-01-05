@@ -14,8 +14,13 @@ done &
 #netcat --help
 nc -h
 
-distcc --help
-distccd --help
+whereis netcat
+whereis nc
+
+ls -lang /usr/bin/
+
+# distcc --help
+# distccd --help
 
 # nc -4kl 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
