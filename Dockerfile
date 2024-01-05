@@ -11,6 +11,7 @@ RUN apt-get -qq update \
   iproute2 \
   libsasl2-modules \
   netcat-openbsd \
+  sasl2-bin \
   zlib1g-dev
 
 COPY --chmod=755 ./*.sh ./
