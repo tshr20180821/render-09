@@ -10,7 +10,8 @@ echo ${filename} >&2
 
 echo -n "$@" | base64 >${filename}
 
-echo -n $(gzip -c ${filename} | curl -X POST --data-binary @- -H "Content-Encoding: gzip" --compressed https://${RENDER_EXTERNAL_HOSTNAME}/distcc_wrapper.php) | base64 -d
+# echo -n $(gzip -c ${filename} | curl -X POST --data-binary @- -H "Content-Encoding: gzip" --compressed https://${RENDER_EXTERNAL_HOSTNAME}/distcc_wrapper.php) | base64 -d
+curl -X POST --data-binary @${filename} https://${RENDER_EXTERNAL_HOSTNAME}/distcc_wrapper.php) | base64 -d
 
 rm ${filename}
 
