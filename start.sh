@@ -22,8 +22,8 @@ ncat --help
 # nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 # strace -Ttt -s 1024 -e trace=network,read,write,poll,fcntl,open,close nc -lkp 3632 -s 127.0.0.1 -e /usr/src/app/distccd_wrapper.sh &
 
-ncat --sh-exec "ncat -u 127.0.0.1 3632" -4nkl 3632 --no-shutdown --allow 127.0.0.1 &
-ncat --sh-exec "/usr/src/app/distccd_wrapper.sh" -4ukl 3632 --no-shutdown --allow 127.0.0.1 &
+ncat --sh-exec "ncat -u 127.0.0.1 3632" -4nkl 127.0.0.1 3632 --no-shutdown --allow 127.0.0.1 &
+ncat --sh-exec "/usr/src/app/distccd_wrapper.sh" -4ukl 127.0.0.1 3632 --no-shutdown --allow 127.0.0.1 &
 
 sleep 5s && ss -anpto && ps aux &
 
