@@ -13,6 +13,8 @@ distccd --help
 sleep 10s
 ss -ant
 
+curl http://127.0.0.1:8080/help
+
 # server
 # POST : curl --data-binary @- https://hoge/hoge
 # socat TCP-LISTEN:3634,bind=127.0.0.1,reuseaddr,fork 'EXEC:exec /usr/bin/distccd --log-level warning --log-file /var/www/html/auth/distccd_log.txt -'
@@ -23,7 +25,7 @@ socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_re
   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
 
 # client
-socat -dd TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork \
+socat -4dd TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork \
   "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 
 sleep 3s
