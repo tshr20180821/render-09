@@ -5,6 +5,43 @@ set -x
 apt-get -qq update
 apt-get install -y distcc socat >/dev/null 2>&1
 
+# start sshd
+
+curl -Lo /usr/src/app/hpnsshd https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
+chmod +x /usr/src/app/hpnsshd
+
+mkdir -p /usr/src/app/.ssh
+chmod 700 /usr/src/app/.ssh
+
+ssh-keygen -t rsa -N '' -f /usr/src/app/.ssh/ssh_host_rsa_key
+
+cat << EOF >/usr/src/app/hpnsshd_config
+AddressFamily inet
+ListenAddress 0.0.0.0
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+PubkeyAuthentication yes
+AuthorizedKeysFile /usr/src/app/.ssh/ssh_host_rsa_key.pub
+X11Forwarding no
+PrintMotd no
+# LogLevel DEBUG3
+LogLevel VERBOSE
+AcceptEnv LANG LC_*
+PidFile /tmp/hpnsshd.pid
+ClientAliveInterval 120
+ClientAliveCountMax 3
+EOF
+
+useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
+mkdir /var/empty
+
+/usr/src/app/hpnsshd -4Dp 60022 -h /usr/src/app/.ssh/ssh_host_rsa_key -f /usr/src/app/hpnsshd_config &
+cp /usr/src/app/.ssh/ssh_host_rsa_key.pub /var/www/html/auth/ssh_host_rsa_key.pub.txt
+
+# finish sshd
+
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
