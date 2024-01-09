@@ -2,7 +2,8 @@
 
 set -x
 
-where distccd
+whereis distcc
+whereis distccd
 
 curl -L https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --http-port=8080 &
