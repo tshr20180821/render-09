@@ -8,6 +8,8 @@ set -x
 curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=8080 &
 
+touch /var/www/html/auth/distccd_log.txt
+chmod 666 /var/www/html/auth/distccd_log.txt
 /usr/bin/distccd --port=3634 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
 
 sleep 10s
@@ -19,8 +21,6 @@ curl http://127.0.0.1:8080/help
 # POST : curl --data-binary @- https://hoge/hoge
 # socat TCP-LISTEN:3634,bind=127.0.0.1,reuseaddr,fork 'EXEC:exec /usr/bin/distccd --log-level warning --log-file /var/www/html/auth/distccd_log.txt -'
 # socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3634
-touch /var/www/html/auth/distccd_log.txt
-chmod 666 /var/www/html/auth/distccd_log.txt
 # socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
 socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
