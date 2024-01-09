@@ -17,6 +17,7 @@ socat -x TCP-LISTEN:3632,bind=127.0.0.1,reuseaddr,fork \
 
 sleep 3s
 ss -ant
+ps aux
 
 pushd /tmp
 curl -O https://memcached.org/files/memcached-1.6.22.tar.gz
