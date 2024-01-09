@@ -23,6 +23,7 @@ RUN set -x \
  && a2enmod -q \
   authz_groupfile \
   proxy \
+  proxy_http \
   rewrite \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
  && chown www-data:www-data /var/www/html/auth -R \
