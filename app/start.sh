@@ -8,7 +8,6 @@ a2enmod \
  proxy_http \
  rewrite
 
-rm /etc/apache2/sites-enabled/apache.conf
 curl -L -H 'Cache-Control: no-cache' -o /etc/apache2/sites-enabled/apache.conf https://raw.githubusercontent.com/tshr20180821/render-09/main/apache.conf?$(date +%s)
 cat /etc/apache2/sites-enabled/apache.conf
 
