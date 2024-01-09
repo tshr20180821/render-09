@@ -3,7 +3,7 @@
 set -x
 
 curl -L https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
-ls -lang
+ls -lang piping-server-x86_64-unknown-linux-musl/
 
 curl -L https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -29,7 +29,7 @@ ss -ant
 ps aux
 
 apt-get -qq update
-apt-get install -y libevent-dev
+apt-get install -y libevent-dev >/dev/null 2>&1
 
 pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
@@ -46,3 +46,5 @@ MAKEFLAGS="CC=distcc\ gcc" make -j2
 
 popd
 popd
+
+ls -lang /var/www/html/auth/
