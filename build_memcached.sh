@@ -27,7 +27,7 @@ socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_re
   TCP:127.0.0.1:3634 &
 
 # client
-socat -dd -4 TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork \
+socat -dd -4 TCP-LISTEN:3632,bind=127.0.0.1,reuseaddr,fork \
   "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 
 sleep 3s
@@ -41,14 +41,14 @@ pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
-export DISTCC_HOSTS="127.0.0.1:3633/1 localhost/1"
+export DISTCC_HOSTS="127.0.0.1/1 localhost/1"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 
 pushd memcached-1.6.22
 
 ./configure --disable-docs
 
-MAKEFLAGS="CC=distcc\ gcc" make -j2
+time MAKEFLAGS="CC=distcc\ gcc" make -j2
 
 popd
 popd
