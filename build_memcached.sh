@@ -1,32 +1,31 @@
 #!/bin/bash
 
-set -e
+set -x
 
-export DISTCC_HOSTS="127.0.0.1"
+curl -L https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+./piping-server-pkg-linuxstatic-x64/piping-server --http-port=8080 &
+
+# server
+# socat TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork 'EXEC:exec /bin/distccd --log-level warning --log-file /var/www/html/auth/distccd_log.txt -'
+# socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3633
+socat -v 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response',fork \
+  'EXEC:exec /bin/distccd --log-level info --log-file /var/www/html/auth/distccd_log.txt -'
+
+# client
+socat -x TCP-LISTEN:3632,bind=127.0.0.1,reuseaddr,fork 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request'
 
 pushd /tmp
-
 curl -O https://memcached.org/files/memcached-1.6.22.tar.gz
-
 tar xf memcached-1.6.22.tar.gz
+
+export DISTCC_HOSTS="127.0.0.1:3632/1 localhost/1"
+export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 
 pushd memcached-1.6.22
 
-./configure --help
+./configure --disable-docs
 
-# ./configure --enable-sasl --enable-sasl-pwdb --enable-static --enable-64bit --disable-docs
-./configure --enable-sasl --enable-sasl-pwdb --enable-64bit --disable-docs
-
-ss -anpt
-
-# time make
-time MAKEFLAGS="CC=distcc\ gcc" make -j2
-
-make install
+MAKEFLAGS="CC=distcc\ gcc" make -j2
 
 popd
-
-ldd /usr/local/bin/memcached
-cp /usr/local/bin/memcached /var/www/html/
-
 popd
