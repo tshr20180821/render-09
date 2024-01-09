@@ -2,6 +2,9 @@
 
 set -x
 
+apt-get -qq update
+apt-get install -y distcc socat >/dev/null 2>&1
+
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
@@ -34,7 +37,6 @@ sleep 3s
 ss -ant
 ps aux
 
-apt-get -qq update
 apt-get install -y libevent-dev >/dev/null 2>&1
 
 pushd /tmp
