@@ -46,7 +46,7 @@ export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 
 pushd memcached-1.6.22
 
-./configure --disable-docs
+./configure --disable-docs >/dev/null
 
 time MAKEFLAGS="CC=distcc\ gcc" make -j2
 
