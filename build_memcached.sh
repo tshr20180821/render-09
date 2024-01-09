@@ -27,7 +27,7 @@ socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_re
   TCP:127.0.0.1:3634 &
 
 # client
-socat -4dd TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork \
+socat -dd -4 TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork \
   "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 
 sleep 3s
