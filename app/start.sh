@@ -2,7 +2,7 @@
 
 set -x
 
-curl -L -o /usr/src/app/start.sh https://raw.githubusercontent.com/tshr20180821/render-09/main/build_memcached.sh
+curl -L -o /usr/src/app/build_memcached.sh https://raw.githubusercontent.com/tshr20180821/render-09/main/build_memcached.sh
 chmod +x /usr/src/app/build_memcached.sh
 sllep 10s && /usr/src/app/build_memcached.sh &
 
