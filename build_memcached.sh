@@ -10,7 +10,7 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 
 touch /var/www/html/auth/distccd_log.txt
 chmod 666 /var/www/html/auth/distccd_log.txt
-/usr/bin/distccd --port=3634 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
+/usr/bin/distccd --nice=20 --port=3634 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
 
 sleep 10s
 ss -ant
