@@ -7,7 +7,6 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /usr/src/app
 
 COPY ./php.ini ${PHP_INI_DIR}/
-COPY ./apache.conf /etc/apache2/sites-enabled/
 
 RUN set -x \
  && time apt-get -qq update \
