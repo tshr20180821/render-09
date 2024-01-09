@@ -6,6 +6,7 @@ a2enmod \
  authz_groupfile \
  proxy \
  proxy_http \
+ proxy_connect \
  rewrite
 
 curl -L -H 'Cache-Control: no-cache' -o /etc/apache2/sites-enabled/apache.conf https://raw.githubusercontent.com/tshr20180821/render-09/main/apache.conf?$(date +%s)
