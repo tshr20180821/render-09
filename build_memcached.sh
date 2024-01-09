@@ -26,7 +26,7 @@ ps aux
 apt-get install libevent-dev
 
 pushd /tmp
-curl -O https://memcached.org/files/memcached-1.6.22.tar.gz
+curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
 export DISTCC_HOSTS="127.0.0.1:3632/1 localhost/1"
