@@ -23,12 +23,12 @@ ss -ant
 # socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3634
 # socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
-socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
+socat -dd "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
   TCP:127.0.0.1:3634 &
 
 # client
 socat -dd -4 TCP-LISTEN:3632,bind=127.0.0.1,reuseaddr,fork \
-  "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
+  "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 
 sleep 3s
 ss -ant
