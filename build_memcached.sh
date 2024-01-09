@@ -13,7 +13,7 @@ curl -L https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/
 # socat TCP-LISTEN:3633,bind=127.0.0.1,reuseaddr,fork 'EXEC:exec /usr/bin/distccd --log-level warning --log-file /var/www/html/auth/distccd_log.txt -'
 # socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3633
 socat -v 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' \
-  'EXEC:exec /usr/bin/distccd --log-level info --log-file /var/www/html/auth/distccd_log.txt -' &
+  'EXEC:/usr/bin/distccd --log-level info --log-file /var/www/html/auth/distccd_log.txt -' &
 
 # client
 socat -x TCP-LISTEN:3632,bind=127.0.0.1,reuseaddr,fork \
