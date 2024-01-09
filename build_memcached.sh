@@ -3,7 +3,7 @@
 set -x
 
 apt-get -qq update
-apt-get install -y distcc socat >/dev/null 2>&1
+apt-get install -y distcc socat ssh >/dev/null 2>&1
 
 # start sshd
 
