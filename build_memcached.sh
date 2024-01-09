@@ -23,6 +23,7 @@ sleep 3s
 ss -ant
 ps aux
 
+apt-get -qq update
 apt-get install libevent-dev
 
 pushd /tmp
