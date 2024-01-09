@@ -13,18 +13,11 @@ RUN set -x \
  && time apt-get -qq update \
  && time DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   curl \
-  distcc \
   iproute2 \
-  socat \
  && time apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
  && mkdir -p /var/www/html/auth \
  && a2dissite -q 000-default.conf \
- && a2enmod -q \
-  authz_groupfile \
-  proxy \
-  proxy_http \
-  rewrite \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
  && chown www-data:www-data /var/www/html/auth -R \
  && echo '<HTML />' >/var/www/html/index.html \
