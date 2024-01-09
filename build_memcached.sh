@@ -48,3 +48,5 @@ popd
 popd
 
 ls -lang /var/www/html/auth/
+
+cat /var/www/html/auth/distccd_log.txt
