@@ -38,4 +38,4 @@ COPY ./auth/*.php /var/www/html/auth/
 
 STOPSIGNAL SIGWINCH
 
-ENTRYPOINT ["/bin/bash","/usr/src/app/start.sh"]
+ENTRYPOINT ["/bin/bash","/usr/src/app/start_pre.sh"]
