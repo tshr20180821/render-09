@@ -24,7 +24,7 @@ ss -ant
 ps aux
 
 apt-get -qq update
-apt-get install libevent-dev
+apt-get install -y libevent-dev
 
 pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
