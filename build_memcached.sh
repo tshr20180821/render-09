@@ -2,7 +2,7 @@
 
 set -x
 
-apt-get -qq update
+# apt-get -qq update
 apt-get install -y distcc proxytunnel socat ssh >/dev/null 2>&1
 
 curl -LO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
