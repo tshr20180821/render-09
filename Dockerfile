@@ -9,17 +9,7 @@ WORKDIR /usr/src/app
 COPY ./php.ini ${PHP_INI_DIR}/
 
 RUN set -x \
- && time apt-get -qq update \
- && time DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
-  curl \
-  iproute2 \
- && time apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && mkdir -p /var/www/html/auth \
- && a2dissite -q 000-default.conf \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
- && chown www-data:www-data /var/www/html/auth -R \
- && echo '<HTML />' >/var/www/html/index.html \
  && \
   { \
    echo 'User-agent: *'; \
