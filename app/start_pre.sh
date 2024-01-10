@@ -2,6 +2,17 @@
 
 set -x
 
+apt-get -qq update
+apt-get -q install -y curl iproute2
+
+mkdir -p /var/www/html/auth
+a2dissite -q 000-default.conf
+
+chown www-data:www-data /var/www/html/auth -R
+
+echo '<HTML />' >/var/www/html/index.html
+
+
 rm /usr/src/app/start.sh
 curl -L -H 'Cache-Control: no-cache' -o /usr/src/app/start.sh https://raw.githubusercontent.com/tshr20180821/render-09/main/app/start.sh?$(date +%s)
 cat /usr/src/app/start.sh
