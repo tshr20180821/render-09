@@ -8,8 +8,8 @@ apt-get install -y distcc socat >/dev/null 2>&1
 
 # start sshd
 
-curl -Lo /usr/src/app/hpnsshd https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
-chmod +x /usr/src/app/hpnsshd
+# curl -sSLo /usr/src/app/hpnsshd https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
+# chmod +x /usr/src/app/hpnsshd
 
 mkdir -p /usr/src/app/.ssh
 chmod 700 /usr/src/app/.ssh
