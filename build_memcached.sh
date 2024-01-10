@@ -38,7 +38,7 @@ EOF
 # useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
 # mkdir /var/empty
 
-# /usr/src/app/hpnsshd -4Dp 60022 -h /usr/src/app/.ssh/ssh_host_rsa_key -f /usr/src/app/hpnsshd_config &
+# /usr/src/app/hpnsshd -4Dp 10022 -h /usr/src/app/.ssh/ssh_host_rsa_key -f /usr/src/app/hpnsshd_config &
 # cp /usr/src/app/.ssh/ssh_host_rsa_key.pub /var/www/html/auth/ssh_host_rsa_key.pub.txt
 
 # finish sshd
