@@ -115,7 +115,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time timeout -sKILL 300 MAKEFLAGS="CC=distcc\ gcc" make -j1
+time MAKEFLAGS="CC=distcc\ gcc" make -j1
 
 popd
 popd
