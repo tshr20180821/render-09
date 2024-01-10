@@ -93,14 +93,15 @@ curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
 export DISTCC_VERBOSE=1
-export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
+# export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
+export DISTCC_HOSTS="127.0.0.1,cpp,lzo"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 
 pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j2
+time timeout -sKILL 300 MAKEFLAGS="CC=distcc\ gcc" make -j1
 
 popd
 popd
