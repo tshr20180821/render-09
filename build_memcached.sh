@@ -37,7 +37,7 @@ EOF
 useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
 mkdir /var/empty
 
-/usr/src/app/hpnsshd -4Dp 60022 -h /usr/src/app/.ssh/ssh_host_rsa_key -f /usr/src/app/hpnsshd_config &
+# /usr/src/app/hpnsshd -4Dp 60022 -h /usr/src/app/.ssh/ssh_host_rsa_key -f /usr/src/app/hpnsshd_config &
 cp /usr/src/app/.ssh/ssh_host_rsa_key.pub /var/www/html/auth/ssh_host_rsa_key.pub.txt
 
 # finish sshd
@@ -83,12 +83,12 @@ chmod +x piping-duplex
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
 # socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   TCP:127.0.0.1:3634 &
-socat "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request" tcp:127.0.0.1:3634
+socat "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response" tcp:127.0.0.1:3634
 
 # client
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
-socat -4 tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response"
+socat -4 tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
 
 # finish socat
 
