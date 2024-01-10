@@ -93,7 +93,7 @@ socat "EXEC:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 # socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
-socat -ddd -4 tcp-listen:3632,reuseaddr,fork "EXEC:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
+socat -4 tcp-listen:3632,reuseaddr,fork "EXEC:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
 
 # finish socat
 
