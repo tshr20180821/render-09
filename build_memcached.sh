@@ -44,8 +44,8 @@ EOF
 # finish sshd
 
 # start piping server
-# curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
-# ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
+curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
 # curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
 # ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=8080 &
@@ -71,7 +71,8 @@ tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
 
 # export PIPING_SERVER=https://piping.glitch.me
-export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh/
+# export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh/
+export PIPING_SERVER=http://127.0.0.1:8080/
 
 # finish piping-duplex
 
