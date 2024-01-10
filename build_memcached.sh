@@ -88,7 +88,7 @@ socat -ddd -v "EXEC:./piping-duplex -c -s https\://${RENDER_EXTERNAL_HOSTNAME}/p
 # client
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
-socat -4 -x tcp-listen:3632 "EXEC:./piping-duplex -c -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
+socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -c -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
 
 # finish socat
 
