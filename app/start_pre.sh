@@ -5,6 +5,8 @@ set -x
 apt-get -qq update
 apt-get -q install -y curl iproute2 >dev/null
 
+ss --version
+
 mkdir -p /var/www/html/auth
 a2dissite -q 000-default.conf
 
