@@ -57,7 +57,7 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 touch /var/www/html/auth/distccd_log.txt
 chmod 666 /var/www/html/auth/distccd_log.txt
 # /usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
-/usr/bin/distccd --port=3634 --listen=127.0.0.1 --user=nobody --jobs=1 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
+/usr/bin/distccd --port=3634 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
 
 # finish distccd
 
@@ -126,7 +126,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j1
+time MAKEFLAGS="CC=distcc\ gcc" make -j4
 
 popd
 popd
