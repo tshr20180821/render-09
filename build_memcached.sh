@@ -77,7 +77,7 @@ socat -ddd "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping
   TCP:127.0.0.1:3634 &
 
 # client
-socat -4 TCP-LISTEN:3632,bind=0.0.0.0,reuseaddr,fork \
+socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 
 # finish socat
