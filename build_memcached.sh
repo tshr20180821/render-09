@@ -70,7 +70,7 @@ curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-r
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
 
-# export PIPING_SERVER=https://piping.glitch.me
+export PIPING_SERVER=https://piping.glitch.me
 
 # finish piping-duplex
 
@@ -95,7 +95,7 @@ socat -x "exec:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_respo
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 # socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
-socat -v -4 tcp-listen:3632,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
+socat -4 tcp-listen:3632,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
 
 # finish socat
 
