@@ -70,7 +70,7 @@ curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-r
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
 
-export PIPING_SERVER=https://piping.glitch.me
+# export PIPING_SERVER=https://piping.glitch.me
 
 # finish piping-duplex
 
@@ -89,13 +89,13 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 # socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   TCP:127.0.0.1:3634 &
 # socat -ddd -v "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response" tcp:127.0.0.1:3634
-socat "EXEC:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3634 &
+socat -x "EXEC:./piping-duplex ${KEYWORD}distccd_request ${KEYWORD}distccd_response" tcp:127.0.0.1:3634 &
 
 # client
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
 # socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
-socat -4 tcp-listen:3632,reuseaddr,fork "EXEC:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
+socat -v -4 tcp-listen:3632,reuseaddr,fork "EXEC:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
 
 # finish socat
 
@@ -111,7 +111,7 @@ tar xf memcached-1.6.22.tar.gz
 
 # export DISTCC_VERBOSE=1
 # export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
-export DISTCC_HOSTS="127.0.0.1,lzo"
+export DISTCC_HOSTS="127.0.0.1"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 
 pushd memcached-1.6.22
