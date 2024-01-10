@@ -56,7 +56,7 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 touch /var/www/html/auth/distccd_log.txt
 chmod 666 /var/www/html/auth/distccd_log.txt
 # /usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
-/usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=1 --log-level=debug --log-stderr --log-file=/var/www/html/auth/distccd_log.txt --daemon
+/usr/bin/distccd --port=3634 --listen=0.0.0.0 --user=nobody --jobs=1 --log-level=debug --log-stderr --log-file=/var/www/html/auth/distccd_log.txt --daemon
 
 # finish distccd
 
@@ -83,12 +83,12 @@ chmod +x piping-duplex
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
 # socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   TCP:127.0.0.1:3634 &
-socat -ddd -v "EXEC:./piping-duplex -c -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response" tcp:127.0.0.1:3634
+socat -ddd -v "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response" tcp:127.0.0.1:3634
 
 # client
 # socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
 #   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
-socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -c -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
+socat -ddd -4 -x tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request"
 
 # finish socat
 
