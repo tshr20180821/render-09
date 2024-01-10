@@ -70,7 +70,8 @@ curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-r
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
 
-export PIPING_SERVER=https://piping.glitch.me
+# export PIPING_SERVER=https://piping.glitch.me
+export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh/
 
 # finish piping-duplex
 
