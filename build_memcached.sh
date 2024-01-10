@@ -56,7 +56,7 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 touch /var/www/html/auth/distccd_log.txt
 chmod 666 /var/www/html/auth/distccd_log.txt
 # /usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=4 --log-level=debug --log-file=/var/www/html/auth/distccd_log.txt --daemon
-/usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=4 --log-level=debug --log-stderr --daemon
+/usr/bin/distccd --nice=20 --port=3634 --listen=0.0.0.0 --user=nobody --jobs=1 --log-level=debug --log-stderr --daemon
 
 # finish distccd
 
@@ -64,6 +64,8 @@ sleep 10s
 ss -ant
 
 # curl http://127.0.0.1:8080/help
+
+# start socat
 
 # server
 # POST : curl --data-binary @- https://hoge/hoge
@@ -77,6 +79,8 @@ socat -ddd "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping
 # client
 socat -4 TCP-LISTEN:3632,bind=0.0.0.0,reuseaddr,fork \
   "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
+
+# finish socat
 
 sleep 3s
 ss -ant
