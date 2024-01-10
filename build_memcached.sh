@@ -73,7 +73,7 @@ ss -ant
 # socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3634
 # socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
-socat -ddd "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
+socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
   TCP:127.0.0.1:3634 &
 
 # client
