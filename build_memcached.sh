@@ -5,10 +5,6 @@ set -x
 # apt-get -qq update
 apt-get install -y distcc proxytunnel socat ssh >/dev/null 2>&1
 
-curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
-tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
-ls -lang piping-duplex/
-
 # start sshd
 
 curl -Lo /usr/src/app/hpnsshd https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
@@ -67,6 +63,14 @@ chmod 666 /var/www/html/auth/distccd_log.txt
 sleep 10s
 ss -ant
 
+# start piping-duplex
+
+curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
+tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
+chmod +x piping-duplex
+
+# finish piping-duplex
+
 # curl http://127.0.0.1:8080/help
 
 # start socat
@@ -77,12 +81,14 @@ ss -ant
 # socat 'EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response' TCP:127.0.0.1:3634
 # socat -dd "EXEC:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
 #   'EXEC:/usr/bin/distccd --user nobody --log-level debug --log-file /var/www/html/auth/distccd_log.txt -' &
-socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
-  TCP:127.0.0.1:3634 &
+# socat -ddd -vvv "EXEC:curl --http1.1 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request!!EXEC:curl --http1.1 -vNsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response" \
+#   TCP:127.0.0.1:3634 &
+socat "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_response distccd_request" tcp:127.0.0.1:3634
 
 # client
-socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
-  "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
+# socat -4 tcp-listen:3632,bind=0.0.0.0,reuseaddr,fork \
+#   "EXEC:curl --http1.1 -vNsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_response!!EXEC:curl --http1.1 -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping/distccd_request" &
+socat -4 tcp-listen:3632 "EXEC:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping distccd_request distccd_response"
 
 # finish socat
 
