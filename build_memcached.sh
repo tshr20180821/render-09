@@ -107,6 +107,12 @@ ps aux
 
 apt-get install -y libevent-dev >/dev/null 2>&1
 
+gcc -### -E - -march=native 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )//g' >/tmp/cflags_option
+cflags_option=$(cat /tmp/cflags_option)
+export CFLAGS="-O2 ${cflags_option} -pipe -fomit-frame-pointer"
+export CXXFLAGS="$CFLAGS"
+export LDFLAGS="-fuse-ld=gold"
+
 pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
