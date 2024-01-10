@@ -76,7 +76,7 @@ chmod +x piping-duplex
 
 # start socat
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 128 | head -n 1)
+KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 # server
 # POST : curl --data-binary @- https://hoge/hoge
