@@ -17,7 +17,7 @@ cat /usr/src/app/build_memcached.sh
 chmod +x /usr/src/app/build_memcached.sh
 sleep 10s && /usr/src/app/build_memcached.sh &
 
-for i in {1..10}; do sleep 60s && echo "${i}" && vmstat 3 && ss -anpt && ps aux; done \
+for i in {1..10}; do sleep 60s && echo "${i}" && ss -anpt && ps aux; done \
  && ss -anpt \
  && ps aux &
      
