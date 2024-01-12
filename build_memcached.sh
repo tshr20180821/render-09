@@ -18,6 +18,7 @@ chmod +x piping-duplex
 # start socat
 
 KEYWORD=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/keyword.txt)
+export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/piping_server.txt)
 
 # client
 socat -4 tcp-listen:3632,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
