@@ -49,7 +49,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j4
+time MAKEFLAGS="CC=distcc\ gcc" make -j2 2>&1 | tee -a /var/www/html/auth/build_log.txt
 
 popd
 popd
