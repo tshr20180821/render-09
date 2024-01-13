@@ -22,8 +22,9 @@ export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/a
 
 # client
 # socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
-socat -d -4 tcp-listen:9001,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
-socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork 'system:"stdbuf -o0 recode ../b64 | socat - tcp:127.0.0.1:9001,end-close"' &
+# socat -d -4 tcp-listen:9001,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
+# socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork 'system:"stdbuf -o0 recode ../b64 | socat - tcp:127.0.0.1:9001,end-close"' &
+socat tcp-listen:3632 'exec:curl -NsS http\://ppng.ml/${KEYWORD}distccd_response!!exec:curl -NsST - http\://ppng.ml/${KEYWORD}distccd_request' &
 
 # finish socat
 
