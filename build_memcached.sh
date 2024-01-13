@@ -23,7 +23,7 @@ export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/a
 # client
 # socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
 socat -v -4 tcp-listen:9001,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
-socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80960 'system:"stdbuf -o0 recode ../b64 | socat -tcp:127.0.0.1:9001"' &
+socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80960 'system:"stdbuf -o0 recode ../b64 | socat - tcp:127.0.0.1:9001"' &
 
 # finish socat
 
