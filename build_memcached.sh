@@ -2,7 +2,7 @@
 
 set -x
 
-apt-get install -y distcc socat >/dev/null 2>&1
+apt-get install -y distcc socat recode >/dev/null 2>&1
 
 # start piping-duplex
 
