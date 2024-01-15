@@ -2,6 +2,8 @@
 
 set -x
 
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y socat ssh >/dev/null
+
 curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
 chmod +x piping-duplex
