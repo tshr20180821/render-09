@@ -14,7 +14,7 @@ curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} -o /usr/src/app/.ssh/ssh_host_rsa_ke
 KEYWORD=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/keyword.txt)
 export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/piping_server.txt)
 
-socat -4 tcp-listen:10022,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}sshd_response ${KEYWORD}sshd_request" &
+socat -ddd -4 tcp-listen:10022,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}sshd_response ${KEYWORD}sshd_request" &
 
 sleep 3s
 ss -anpt
