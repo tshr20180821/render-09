@@ -2,31 +2,19 @@
 
 set -x
 
-apt-get install -y distcc socat recode >/dev/null 2>&1
-
-# start piping-duplex
-
-curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
-tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
-chmod +x piping-duplex
-
-# export PIPING_SERVER=https://piping.glitch.me
-# export PIPING_SERVER=https://piping-47q675ro2guv.runkit.sh/
-
-# finish piping-duplex
-
-# start socat
+DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
+  build-essential \
+  distcc \
+  gcc-x86-64-linux-gnu
 
 KEYWORD=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/keyword.txt)
-export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/piping_server.txt)
+PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/auth/piping_server.txt)
 
-# client
-# socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
-# socat -d -4 tcp-listen:9001,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}distccd_response ${KEYWORD}distccd_request" &
-# socat -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork 'system:"stdbuf -o0 recode ../b64 | socat - tcp:127.0.0.1:9001,end-close"' &
-socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,fork "exec:curl -NsS http\://${PIPING_SERVER}/${KEYWORD}distccd_response!!exec:curl -NsST - http\://${PIPING_SERVER}/${KEYWORD}distccd_request" &
+curl -sSLO https://github.com/nwtgck/go-piping-tunnel/releases/download/v0.10.1/piping-tunnel-0.10.1-linux-amd64.deb
+dpkg -i ./piping-tunnel-0.10.1-linux-amd64.deb
 
-# finish socat
+whereis piping-tunnel
+piping-tunnel client -k --http-read-buf-size 80960 --http-write-buf-size 80960 -s ${PIPING_SERVER} --port 3632 --yamux ${KEYWORD}req ${KEYWORD}res &
 
 sleep 3s
 ss -anpt
