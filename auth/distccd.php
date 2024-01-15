@@ -1,8 +1,9 @@
 <?php
 
+error_log("Y-m-d H:i:s");
+
 $data = file_get_contents("php://input");
 
-error_log("Y-m-d H:i:s");
 error_log($data);
 
 $socket = stream_socket_client('tcp://127.0.0.1:13632');
