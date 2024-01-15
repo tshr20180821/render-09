@@ -15,7 +15,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
 
-socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:curl -u ${BASIC_USER}:${BASIC_PASSWORD} -sSNT - https://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php"
+socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:curl -u ${BASIC_USER}:${BASIC_PASSWORD} -sSNT - https://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
 
 apt-get install -y libevent-dev >/dev/null 2>&1
 
