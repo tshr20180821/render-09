@@ -27,4 +27,4 @@ Host *
   Compression yes
 EOF
 
-ssh2 -F /usr/src/app/ssh_config -p 10022 root@127.0.0.1 'ls -lang'
+ssh -F /usr/src/app/ssh_config -p 10022 root@127.0.0.1 'ls -lang'
