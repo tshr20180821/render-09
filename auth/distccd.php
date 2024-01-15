@@ -2,7 +2,7 @@
 
 $data = file_get_contents("php://input");
 
-error_log("Y-m-d H:i:s");
+error_log(date("Y-m-d H:i:s"));
 error_log($data);
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
