@@ -16,6 +16,9 @@ export PIPING_SERVER=$(curl -sS -u ${BASIC_USER}:${BASIC_PASSWORD} ${SERVER01}/a
 
 socat -4 tcp-listen:10022,bind=127.0.0.1,reuseaddr,fork "exec:./piping-duplex ${KEYWORD}sshd_response ${KEYWORD}sshd_request" &
 
+sleep 3s
+ss -anpt
+
 cat << EOF >/usr/src/app/ssh_config
 Host *
   StrictHostKeyChecking no
