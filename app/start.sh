@@ -12,7 +12,9 @@ a2enmod \
 curl -sSL -H 'Cache-Control: no-cache' -o /etc/apache2/sites-enabled/apache.conf https://raw.githubusercontent.com/tshr20180821/render-09/main/apache.conf?$(date +%s)
 cat /etc/apache2/sites-enabled/apache.conf
 
-curl -sSL -H 'Cache-Control: no-cache' -o /usr/src/app/build_memcached.sh https://raw.githubusercontent.com/tshr20180821/render-09/main/build_memcached.sh?$(date +%s)
+# curl -sSL -H 'Cache-Control: no-cache' -o /usr/src/app/build_memcached.sh https://raw.githubusercontent.com/tshr20180821/render-09/main/build_memcached.sh?$(date +%s)
+curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/build_memcached.sh
+
 cat /usr/src/app/build_memcached.sh
 chmod +x /usr/src/app/build_memcached.sh
 sleep 10s && /usr/src/app/build_memcached.sh &
