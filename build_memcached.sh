@@ -6,7 +6,7 @@ KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 16 | head -n 1)
 
 echo 'start curl 1'
 
-echo 'piping_server' | curl -vT - ${PIPING_SERVER}/${KEYWORD}
+echo 'piping_server' | curl --http1.1 -vT - ${PIPING_SERVER}/${KEYWORD}
 
 echo 'finish curl 1'
 
