@@ -10,26 +10,28 @@ curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-
 curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
 ./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=8081 &
 
+sleep 5s && ss -anpt
+
 echo 'start curl 1'
 
-curl -X POST -d 'post_piping_server' https://${RENDER_EXTERNAL_HOSTNAME}/piping_server/${KEYWORD}
+curl -X POST -d 'post_piping_server' https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}
 
 echo 'finish curl 1'
 
 echo 'start curl 2'
 
-curl -X POST -d 'post_piping_server_rust' https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}rust
+curl -X POST -d 'post_piping_server_rust' https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}rust
 
 echo 'finish curl 2'
 
 echo 'start curl 3'
 
-curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}
+curl https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}
 
 echo 'finish curl 3'
 
 echo 'start curl 4'
 
-curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}
+curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}
 
 echo 'finish curl 4'
