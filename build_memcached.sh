@@ -14,13 +14,13 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 echo 'start curl 1'
 
-curl -X POST --data-binary 'post_piping_server' https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD} &
+echo 'post_piping_server' | curl -X POST --data-binary @- https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD} &
 
 echo 'finish curl 1'
 
 echo 'start curl 2'
 
-curl -X POST --data-binary 'post_piping_server_rust' https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}rust &
+echo 'post_piping_server_rust' | curl -X POST --data-binary @- https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}rust &
 
 echo 'finish curl 2'
 
