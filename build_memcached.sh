@@ -2,48 +2,34 @@
 
 set -x
 
-DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
-  build-essential \
-  distcc \
-  gcc-x86-64-linux-gnu \
-  socat \
-  >/dev/null
+KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
-DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
-touch ${DISTCCD_LOG_FILE}
-chmod 666 ${DISTCCD_LOG_FILE}
+curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
 
-/usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
+curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0/piping-server-x86_64-unknown-linux-musl.tar.gz | tar xzf -
+./piping-server-x86_64-unknown-linux-musl/piping-server --host=127.0.0.1 --http-port=8081 &
 
-# socat -ddd -v -v -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
-#   "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sSNT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
-#   2>&1 | tee -a /var/www/html/auth/socat_log.txt &
-socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
-  "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
-  2>&1 | tee -a /var/www/html/auth/socat_log.txt &
+echo 'start curl 1'
 
-apt-get install -y libevent-dev >/dev/null 2>&1
+curl -X POST -d 'post_piping_server' https://${RENDER_EXTERNAL_HOSTNAME}/piping_server/${KEYWORD}
 
-gcc -### -E - -march=native 2>&1 | sed -r '/cc1/!d;s/(")|(^.* - )//g' >/tmp/cflags_option
-cflags_option=$(cat /tmp/cflags_option)
-export CFLAGS="-O2 ${cflags_option} -pipe -fomit-frame-pointer"
-export CXXFLAGS="$CFLAGS"
-export LDFLAGS="-fuse-ld=gold"
+echo 'finish curl 1'
 
-pushd /tmp
-curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
-tar xf memcached-1.6.22.tar.gz
+echo 'start curl 2'
 
-# export DISTCC_VERBOSE=1
-# export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
-export DISTCC_HOSTS="127.0.0.1:3632"
-export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
+curl -X POST -d 'post_piping_server_rust' https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}rust
 
-pushd memcached-1.6.22
+echo 'finish curl 2'
 
-./configure --disable-docs >/dev/null
+echo 'start curl 3'
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j1 2>&1 | tee -a /var/www/html/auth/build_log.txt
+curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}
 
-popd
-popd
+echo 'finish curl 3'
+
+echo 'start curl 4'
+
+curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_server_rust/${KEYWORD}
+
+echo 'finish curl 4'

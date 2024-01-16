@@ -15,7 +15,8 @@ RUN set -x \
    echo 'User-agent: *'; \
    echo 'Disallow: /'; \
   } >/var/www/html/robots.txt \
- && docker-php-ext-install sockets
+ && docker-php-ext-install sockets \
+ && a2enmod -q proxy proxy_connect
 
 COPY --chmod=755 ./app/*.sh ./
 COPY ./auth/*.php /var/www/html/auth/
