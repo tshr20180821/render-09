@@ -32,6 +32,6 @@ echo 'finish curl 3'
 
 echo 'start curl 4'
 
-curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}
+curl https://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}rust
 
 echo 'finish curl 4'
