@@ -17,7 +17,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 socat -ddd -v -v -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
   "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sSNT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
-  2>&1 >/var/www/html/auth/socat_log.txt &
+  2>&1 | tee -a /var/www/html/auth/socat_log.txt &
 
 apt-get install -y libevent-dev >/dev/null 2>&1
 
