@@ -24,6 +24,8 @@ echo 'post_piping_server_rust' | curl -X POST --data-binary @- https://${RENDER_
 
 echo 'finish curl 2'
 
+sleep 5s
+
 echo 'start curl 3'
 
 curl https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}
