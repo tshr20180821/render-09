@@ -15,7 +15,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
 
-socat -ddd -vvv -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
+socat -ddd -v -v -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
   "exec:curl -m 30 --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sSNT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
   2>&1 | tee -a /var/www/html/auth/socat_log.txt &
 
