@@ -19,7 +19,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 #   "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sSNT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
 #   2>&1 | tee -a /var/www/html/auth/socat_log.txt &
 socat -ddd -4 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=80920,rcvbuf=80920 \
-  "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sS --data-raw - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
+  "exec:curl --http1.1 -u ${BASIC_USER}\:${BASIC_PASSWORD} -sS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" \
   2>&1 | tee -a /var/www/html/auth/socat_log.txt &
 
 apt-get install -y libevent-dev >/dev/null 2>&1
