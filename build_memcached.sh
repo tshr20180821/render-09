@@ -4,7 +4,7 @@ set -x
 
 curl ${PIPING_SERVER}/help
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 16 | head -n 1)
+KEYWORD=$(tr -dc 'a-z0-9' </dev/urandom | fold -w 16 | head -n 1)
 
 echo 'start curl 1'
 
