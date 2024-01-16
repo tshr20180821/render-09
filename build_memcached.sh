@@ -30,7 +30,7 @@ sleep 3s
 
 socat "exec:curl -sS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx!!exec:curl -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
 
-socat tcp-listen:3632 "exec:curl -sS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
+socat tcp-listen:3632,reuseaddr,fork "exec:curl -sS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
 
 sleep 3s
 ss -anpt
