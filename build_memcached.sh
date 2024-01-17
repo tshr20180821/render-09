@@ -8,7 +8,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   build-essential \
   distcc \
   gcc-x86-64-linux-gnu \
-  socat
+  socat \
+  >/dev/null
 
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
@@ -29,9 +30,9 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 sleep 3s
 
-socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx!!exec:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
+socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
 
-socat tcp-listen:3632,reuseaddr,fork "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
+socat tcp-listen:3632,bind=127.0.0.1,fork "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
 
 sleep 3s
 ss -anpt
