@@ -16,7 +16,8 @@ touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
 
 export DISTCC_TCP_CORK=0
-/usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=2 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private
+# /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=2 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private
+/usr/bin/distccd --port=13632 --listen=127.0.0.1 --jobs=2 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private
 
 sleep 3s
 
