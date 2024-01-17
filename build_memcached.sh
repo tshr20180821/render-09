@@ -33,7 +33,7 @@ sleep 3s
 
 socat "exec:curl --http2 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}xxx!!exec:curl -NsS --http2 --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
 
-socat tcp-listen:3632,bind=127.0.0.1,reuseaddr "exec:curl --http2 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}yyy!!exec:curl --http2 -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}xxx" &
+socat tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork "exec:curl --http2 -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}yyy!!exec:curl --http2 -NsS --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}xxx" &
 
 sleep 3s
 ss -anpt
