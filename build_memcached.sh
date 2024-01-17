@@ -49,7 +49,7 @@ echo "root:${KEYWORD}" | chpasswd
 useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
 mkdir /var/empty
 
-/app/hpnsshd -4De -f /usr/src/app/hpnsshd_config &
+./hpnsshd -4De -f /usr/src/app/hpnsshd_config &
 
 sleep 3s
 
