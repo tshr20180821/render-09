@@ -42,7 +42,7 @@ PrintMotd no
 LogLevel VERBOSE
 AcceptEnv LANG LC_*
 PidFile /tmp/hpnsshd.pid
-ClientAliveInterval 120
+ClientAliveInterval 20
 ClientAliveCountMax 3
 Compression no
 EOF
