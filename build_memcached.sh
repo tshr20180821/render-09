@@ -14,6 +14,7 @@ DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
 
+export DISTCC_TCP_CORK=0
 /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=2 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private
 
 sleep 3s
@@ -28,9 +29,9 @@ curl -sSL https://github.com/nwtgck/piping-server-rust/releases/download/v0.16.0
 
 sleep 3s
 
-socat "exec:curl -sS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx!!exec:curl -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
+socat "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx!!exec:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy" tcp:127.0.0.1:13632 &
 
-socat tcp-listen:3632,reuseaddr,fork "exec:curl -sS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
+socat tcp-listen:3632,reuseaddr,fork "exec:curl -NsS https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}yyy!!exec:curl -NsST - https\://${RENDER_EXTERNAL_HOSTNAME}/piping_rust/${KEYWORD}xxx" &
 
 sleep 3s
 ss -anpt
