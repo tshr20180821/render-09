@@ -4,9 +4,9 @@ set -x
 
 pwd
 
-curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/test.sh
-cat ./test.sh
-chmod +x ./test.sh
+curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/sc01.sh
+cat ./sc01.sh
+chmod +x ./sc01.sh
 
 curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/receive.sh
 cat ./receive.sh
@@ -34,7 +34,7 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
 
-socat -d tcp-listen:3632,reuseaddr,fork 'exec:/usr/src/app/test.sh' &
+socat -d tcp-listen:3632,reuseaddr,fork exec:/usr/src/app/sc01.sh &
 
 ls -lang /usr/src/app/
 
