@@ -2,6 +2,10 @@
 
 set -x
 
+curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/test.sh
+cat ./test.sh
+chmod +x ./test.sh
+
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
@@ -11,7 +15,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   socat \
   >/dev/null
 
-socat -v -d tcp-listen:3632,reuseaddr,fork 'exec:base64 -w0' &
+socat -d tcp-listen:3632,reuseaddr,fork 'exec:base64 -w0 | ./test.sh' &
 
 sleep 3s
 ss -anpt
