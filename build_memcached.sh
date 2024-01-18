@@ -2,9 +2,19 @@
 
 set -x
 
+pwd
+
 curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/test.sh
 cat ./test.sh
 chmod +x ./test.sh
+
+curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/receive.sh
+cat ./receive.sh
+chmod +x ./receive.sh
+
+curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/send.sh
+cat ./send.sh
+chmod +x ./send.sh
 
 curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
 ./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
