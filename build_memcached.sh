@@ -15,6 +15,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   socat \
   >/dev/null
 
+DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
+touch ${DISTCCD_LOG_FILE}
+chmod 666 ${DISTCCD_LOG_FILE}
+
+/usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
+
 socat -d tcp-listen:3632,reuseaddr,fork 'exec:base64 -w0 | ./test.sh' &
 
 sleep 3s
