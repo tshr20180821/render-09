@@ -2,11 +2,11 @@
 
 set -x
 
-echo "test.sh $$ start" >&2
+echo "$0 $$ start" >&2
 
 data=$(cat -) | base64 -w 0
 
-echo "test.sh $$ readed" >&2
+echo "$0 $$ readed" >&2
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
