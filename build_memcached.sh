@@ -6,6 +6,9 @@ curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render
 cat ./test.sh
 chmod +x ./test.sh
 
+curl -sSL https://github.com/nwtgck/piping-server-pkg/releases/download/v1.12.9-1/piping-server-pkg-linuxstatic-x64.tar.gz | tar xzf -
+./piping-server-pkg-linuxstatic-x64/piping-server --host=127.0.0.1 --http-port=8080 &
+
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
