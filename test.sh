@@ -4,7 +4,7 @@ set -x
 
 echo "test.sh $$ start" >&2
 
-read -r line
+data=$(cat -) | base64 -w 0
 
 echo "test.sh $$ readed" >&2
 
@@ -18,8 +18,8 @@ curl -sSm60 -u ${BASIC_USER}:${BASIC_PASSWORD} \
 # curl -sSo ./${KEYWORD} https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res &
 curl -sSm 60 -o ./${KEYWORD} https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res &
 
-# echo ${line} | curl -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
-echo ${line} | gzip -c | curl -H 'Content-Encoding: gzip' -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
+# echo ${data} | curl -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
+echo -n ${data} | gzip -c | curl -H 'Content-Encoding: gzip' -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
 
 while true; do \
   if [ -f ./${KEYWORD} ]; then
