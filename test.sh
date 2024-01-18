@@ -2,9 +2,11 @@
 
 set -x
 
-# socat -d tcp-listen:3632,reuseaddr,fork 'exec:base64 -w0 | ./test.sh' &
+echo "test.sh $$ start" >&2
 
 read -r line
+
+echo "test.sh $$ readed" >&2
 
 KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
 
@@ -22,7 +24,7 @@ echo ${line} | gzip -c | curl -H 'Content-Encoding: gzip' -sST - https://${RENDE
 while true; do \
   if [ -f ./${KEYWORD} ]; then
     sleep 3s
-    echo -n "$$ result : " && cat ./${KEYWORD} >&2
+    echo -n "test.sh $$ result : " && cat ./${KEYWORD} >&2
     cat ./${KEYWORD} | base64 -d
     rm ./${KEYWORD}
     exit 0
