@@ -36,6 +36,9 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 socat -d tcp-listen:3632,reuseaddr,fork 'exec:/usr/src/app/test.sh' &
 
+pwd
+ls -lang
+
 sleep 3s
 ss -anpt
 
