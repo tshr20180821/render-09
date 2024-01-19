@@ -38,7 +38,7 @@ echo '***** socat *****'
 
 # socat -ddd tcp-listen:3632,reuseaddr,fork 'exec:/tmp/sc01.sh' &
 # socat -ddd tcp-listen:3632,reuseaddr,fork "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} --stderr /var/www/html/auth/strerr.txt -NT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
-socat -ddd tcp-listen:3632,reuseaddr,fork,sndbuf=81920 "exec:curl -v --trace-time -u ${BASIC_USER}\:${BASIC_PASSWORD} --trace /var/www/html/auth/trace.txt --stderr /var/www/html/auth/strerr.txt --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
+socat -ddd tcp-listen:3632,reuseaddr,fork,sndbuf=81920 "exec:curl -v --tcp-nodelay --trace-time -u ${BASIC_USER}\:${BASIC_PASSWORD} --trace /var/www/html/auth/trace.txt --stderr /var/www/html/auth/strerr.txt --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
 
 echo '***** socat *****'
 
@@ -59,10 +59,11 @@ tar xf memcached-1.6.22.tar.gz
 
 # export DISTCC_VERBOSE=1
 # export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
-export DISTCC_HOSTS="127.0.0.1"
+export DISTCC_HOSTS="127.0.0.1,lzo,cpp"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 export DISTCC_FALLBACK=0
 export DISTCC_TCP_CORK=0
+export DISTCC_VERBOSE=1
 
 pushd memcached-1.6.22
 
@@ -72,3 +73,5 @@ time MAKEFLAGS="CC=distcc\ gcc" make -j2
 
 popd
 popd
+
+ls -lang /var/www/html/auth/
