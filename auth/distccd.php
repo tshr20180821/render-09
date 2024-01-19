@@ -1,6 +1,6 @@
 <?php
 
-error_log(date("Y-m-d H:i:s"));
+error_log(date("Y-m-d H:i:s") . ' distccd.php start');
 
 $data = file_get_contents("php://input");
 
