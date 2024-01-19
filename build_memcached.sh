@@ -37,8 +37,8 @@ chmod 666 ${DISTCCD_LOG_FILE}
 echo '***** socat *****'
 
 # socat -ddd tcp-listen:3632,reuseaddr,fork 'exec:/tmp/sc01.sh' &
-# socat -ddd tcp-listen:3632,reuseaddr,fork "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} --stderr /var/www/html/auth/strerr.txt -NT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
-socat -ddd tcp-listen:3632,reuseaddr,fork,sndbuf=81920 "exec:curl -v --tcp-nodelay --trace-time -u ${BASIC_USER}\:${BASIC_PASSWORD} --trace /var/www/html/auth/trace.txt --stderr /var/www/html/auth/strerr.txt --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
+# socat -ddd tcp-listen:3632,reuseaddr,fork "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} --stderr /var/www/html/auth/stderr.txt -NT - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
+socat -ddd tcp-listen:3632,reuseaddr,fork,sndbuf=81920 "exec:curl -v --tcp-nodelay --trace-time -u ${BASIC_USER}\:${BASIC_PASSWORD} --trace /var/www/html/auth/trace.txt --stderr /var/www/html/auth/stderr.txt --data-binary @- https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
 
 echo '***** socat *****'
 
