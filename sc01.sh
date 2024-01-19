@@ -16,17 +16,17 @@ curl -sSm60 -u ${BASIC_USER}:${BASIC_PASSWORD} \
   https://${RENDER_EXTERNAL_HOSTNAME}/auth/socat.php &
 
 # curl -sSo ./${KEYWORD} https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res &
-curl -sSm 60 -o ./${KEYWORD} https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res &
+curl -sSm 60 -o /tmp/${KEYWORD} https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}res &
 
 # echo ${data} | curl -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
 echo -n ${data} | gzip -c | curl -H 'Content-Encoding: gzip' -sST - https://${RENDER_EXTERNAL_HOSTNAME}/piping/${KEYWORD}req
 
 while true; do \
-  if [ -f ./${KEYWORD} ]; then
+  if [ -f /tmp/${KEYWORD} ]; then
     sleep 3s
-    echo -n "test.sh $$ result : " && cat ./${KEYWORD} >&2
-    cat ./${KEYWORD} | base64 -d
-    rm ./${KEYWORD}
+    echo -n "test.sh $$ result : " && cat /tmp/${KEYWORD} >&2
+    cat /tmp/${KEYWORD} | base64 -d
+    rm /tmp/${KEYWORD}
     exit 0
   fi
   sleep 1s
