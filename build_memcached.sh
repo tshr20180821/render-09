@@ -34,8 +34,12 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 /usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180 --nice=10
 
+echo '***** socat *****'
+
 # socat -ddd tcp-listen:3632,reuseaddr,fork 'exec:/tmp/sc01.sh' &
 socat -ddd tcp-listen:3632,reuseaddr,fork "exec:curl -u ${BASIC_USER}\:${BASIC_PASSWORD} -sST - https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
+
+echo '***** socat *****'
 
 sleep 3s
 ss -anpt
