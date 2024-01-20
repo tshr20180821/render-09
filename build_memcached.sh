@@ -26,7 +26,36 @@ DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   distcc \
   gcc-x86-64-linux-gnu \
   socat \
+  ssh \
   >/dev/null
+
+curl -sSLO https://raw.githubusercontent.com/tshr20180821/render-07/main/app/hpnsshd
+chmod +x ./hpnsshd
+
+mkdir ./.ssh
+chmod 700 ./.ssh
+
+ssh-keygen -t rsa -N '' -f ./.ssh/ssh_host_rsa_key
+
+cat << EOF >/app/hpnsshd_config
+AddressFamily inet
+ListenAddress 127.0.0.1:10022
+Protocol 2
+PermitRootLogin yes
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+PubkeyAuthentication yes
+HostKey /app/.ssh/ssh_host_rsa_key
+AuthorizedKeysFile /app/.ssh/ssh_host_rsa_key.pub
+X11Forwarding no
+PrintMotd no
+LogLevel VERBOSE
+AcceptEnv LANG LC_*
+PidFile /tmp/hpnsshd.pid
+ClientAliveInterval 120
+ClientAliveCountMax 3
+Compression no
+EOF
 
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
