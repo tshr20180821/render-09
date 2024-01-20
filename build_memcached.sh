@@ -37,7 +37,7 @@ chmod 700 ./.ssh
 
 ssh-keygen -t rsa -N '' -f ./.ssh/ssh_host_rsa_key
 
-cat << EOF >/app/hpnsshd_config
+cat << EOF >/usr/src/app/hpnsshd_config
 AddressFamily inet
 ListenAddress 127.0.0.1:10022
 Protocol 2
@@ -60,7 +60,7 @@ EOF
 useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
 mkdir /var/empty
 
-/app/hpnsshd -4De -f /app/hpnsshd_config &
+/usr/src/app/hpnsshd -4De -f /usr/src/app/hpnsshd_config &
 cp ./.ssh/ssh_host_rsa_key.pub /var/www/html/auth/ssh_host_rsa_key.pub.txt
 
 curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
