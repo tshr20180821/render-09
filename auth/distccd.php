@@ -23,7 +23,7 @@ error_log(date("Y-m-d H:i:s") . ' distccd.php check point 040');
 $res = '';
 for (;;) {
     error_log(date("Y-m-d H:i:s") . ' distccd.php check point 050');
-    $buffer = socket_read($socket, 1024);
+    $buffer = socket_read($socket, 8192);
     if (strlen($buffer) === 0) {
         break;
     }
