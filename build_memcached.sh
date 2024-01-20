@@ -46,7 +46,7 @@ PasswordAuthentication no
 ChallengeResponseAuthentication no
 PubkeyAuthentication yes
 HostKey /app/.ssh/ssh_host_rsa_key
-AuthorizedKeysFile /app/.ssh/ssh_host_rsa_key.pub
+AuthorizedKeysFile /usr/src/app/.ssh/ssh_host_rsa_key.pub
 X11Forwarding no
 PrintMotd no
 LogLevel VERBOSE
