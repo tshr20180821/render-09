@@ -22,6 +22,7 @@ while(true) {
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . strlen($buffer));
     } else {
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
+        break;
     }
 }
 
