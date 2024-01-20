@@ -57,6 +57,18 @@ ClientAliveCountMax 3
 Compression no
 EOF
 
+useradd --system --shell /usr/sbin/nologin --home=/run/hpnsshd hpnsshd
+mkdir /var/empty
+
+/app/hpnsshd -4De -f /app/hpnsshd_config &
+cp ./.ssh/ssh_host_rsa_key.pub /var/www/html/auth/ssh_host_rsa_key.pub.txt
+
+curl -sSLO https://github.com/nwtgck/go-piping-duplex/releases/download/v0.3.0-release-trigger2/piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
+tar xf piping-duplex-0.3.0-release-trigger2-linux-amd64.tar.gz
+chmod +x piping-duplex
+
+socat -v -ddd "exec:./piping-duplex -s https\://${RENDER_EXTERNAL_HOSTNAME}/piping/ ${KEYWORD}sshd_request ${KEYWORD}sshd_response" tcp:127.0.0.1:10022 &
+
 DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
 touch ${DISTCCD_LOG_FILE}
 chmod 666 ${DISTCCD_LOG_FILE}
