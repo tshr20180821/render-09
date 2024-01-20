@@ -17,8 +17,9 @@ while(true) {
 
     if(stream_select($read, $write, $except, $timeout)) {
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 020");
-        $data[] = fgets($stdin);
-        error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030");
+        $buffer = fgets($stdin);
+        $data[] = $buffer;
+        error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . strlen($buffer));
     } else {
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
     }
