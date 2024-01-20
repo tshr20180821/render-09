@@ -30,7 +30,7 @@ for (;;) {
     $res .= $buffer;
 }
 
-error_log(date("Y-m-d H:i:s") . ' distccd.php check point 060');
+error_log(date("Y-m-d H:i:s") . ' distccd.php check point 060 ' . strlen($res));
 
 socket_close($socket);
 
