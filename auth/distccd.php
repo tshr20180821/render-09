@@ -19,10 +19,10 @@ while (true) {
     $line_number++;
 
     if (stream_select($read, $write, $except, $timeout)) {
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
+        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
         $buffer = fgets($stdin);
         $data[] = $buffer;
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . $buffer);
+        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . $buffer);
         if (strlen($buffer) == 0) {
             if ($count_zero++ > 50) {
                 break;
@@ -31,12 +31,12 @@ while (true) {
             $count_zero = 0;
         }
     } else {
-        error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
+        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 040");
         break;
     }
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 050");
+error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050");
 
 error_log(implode("\r\n", $data));
 
