@@ -9,6 +9,7 @@ $stdin = fopen('php://stdin', 'r');
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
 
 $data = [];
+$count_zero = 0;
 
 while(true) {
     $read = array($stdin);
@@ -20,6 +21,13 @@ while(true) {
         $buffer = fgets($stdin);
         $data[] = $buffer;
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . strlen($buffer));
+        if (strlen($buffer) == 0) {
+            if ($count_zero++ > 10) {
+                break;
+            }
+        } else {
+            $count_zero = 0;
+        }
     } else {
         error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
         break;
