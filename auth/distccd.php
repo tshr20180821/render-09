@@ -22,7 +22,7 @@ while (true) {
         error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
         $buffer = fgets($stdin);
         $data[] = $buffer;
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${$line_number} distccd.php check point 030 " . $buffer);
+        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . $buffer);
         if (strlen($buffer) == 0) {
             if ($count_zero++ > 50) {
                 break;
