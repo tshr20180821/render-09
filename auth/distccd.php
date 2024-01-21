@@ -10,17 +10,19 @@ error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
 
 $data = [];
 $count_zero = 0;
+$line_number = 0;
 
-while(true) {
+while (true) {
     $read = array($stdin);
     $write = $except = array();
     $timeout = 5;
+    $line_number++;
 
-    if(stream_select($read, $write, $except, $timeout)) {
-        error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 020");
+    if (stream_select($read, $write, $except, $timeout)) {
+        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
         $buffer = fgets($stdin);
         $data[] = $buffer;
-        error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . $buffer);
+        error_log(date("Y-m-d H:i:s") . " ${pid} ${$line_number} distccd.php check point 030 " . $buffer);
         if (strlen($buffer) == 0) {
             if ($count_zero++ > 50) {
                 break;
