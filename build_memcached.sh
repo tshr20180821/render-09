@@ -4,6 +4,9 @@ set -x
 
 pwd
 
+curl -sSL -H 'Cache-Control: no-cache' -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-09/raw/main/auth/distccd.php
+cat /var/www/html/auth/distccd.php
+
 curl -sSL -H 'Cache-Control: no-cache' -o /tmp/sc01.sh https://github.com/tshr20180821/render-09/raw/main/sc01.sh
 cat /tmp/sc01.sh
 chmod +x /tmp/sc01.sh
