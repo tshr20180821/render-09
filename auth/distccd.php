@@ -44,9 +44,9 @@ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 060");
 
-socket_connect($socket, '127.0.0.1', 13632);
+$rc = socket_connect($socket, '127.0.0.1', 13632);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070 " . $rc);
 
 $rc = socket_write($socket, $implode("\r\n", $data));
 
