@@ -48,9 +48,9 @@ socket_connect($socket, '127.0.0.1', 13632);
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070");
 
-socket_write($socket, $implode("\r\n", $data));
+$rc = socket_write($socket, $implode("\r\n", $data));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080 " . $rc);
 
 $res = '';
 for (;;) {
