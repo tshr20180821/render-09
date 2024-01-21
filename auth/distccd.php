@@ -36,9 +36,9 @@ while (true) {
     }
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050");
+error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050 " . strlen(implode("\r\n", $data)));
 
-error_log(implode("\r\n", $data));
+// error_log(strlen(implode("\r\n", $data)));
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
