@@ -11,7 +11,7 @@ $data = [];
 $count_zero = 0;
 $line_number = 0;
 
-while (true) {
+for (;;) {
     $read = array($stdin);
     $write = $except = array();
     $timeout = 5;
@@ -24,36 +24,37 @@ while (true) {
         // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . strlen($buffer));
         if (strlen($buffer) == 0) {
             if ($count_zero++ > 50) {
+                error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
                 break;
             }
         } else {
             $count_zero = 0;
         }
     } else {
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 040");
+        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050");
         break;
     }
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050 " . strlen(implode('', $data)));
+error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 060 " . strlen(implode('', $data)));
 
 // error_log(strlen(implode("\r\n", $data)));
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 060");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070");
 
 $rc = socket_connect($socket, '127.0.0.1', 13632);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070 " . $rc);
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080 " . $rc);
 
 $rc = socket_write($socket, implode('', $data));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080 " . $rc);
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 090 " . $rc);
 
 $res = '';
 for (;;) {
-    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 090");
+    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 100");
     $buffer = socket_read($socket, 8192);
     if (strlen($buffer) === 0) {
         break;
@@ -61,14 +62,14 @@ for (;;) {
     $res .= $buffer;
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 100 " . strlen($res));
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 110 " . strlen($res));
 
 socket_close($socket);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 110");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 120");
 
 header('Content-Type: binary/octet-stream');
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 120");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 130");
 
 echo $res;
