@@ -43,7 +43,7 @@ $ch = curl_init();
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 061");
 
-curl_setopt($ch, CURLOPT_URL, 'https://' . getenv('RENDER_EXTERNAL_HOSTNAME') . '/auth/crond.php');
+curl_setopt($ch, CURLOPT_URL, 'https://' . getenv('RENDER_EXTERNAL_HOSTNAME') . '/auth/distccd.php');
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 062");
 curl_setopt($ch, CURLOPT_POST, true);
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 063");
