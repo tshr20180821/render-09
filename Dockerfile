@@ -16,6 +16,7 @@ RUN set -x \
    echo 'Disallow: /'; \
   } >/var/www/html/robots.txt \
  && MAKEFLAGS="-j $(nproc)" pecl install igbinary >/dev/null \
+ && MAKEFLAGS="-j $(nproc)" pecl install memcached --enable-memcached-sasl >/dev/null \
  && docker-php-ext-enable \
   igbinary \
   memcached \
