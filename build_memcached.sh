@@ -5,8 +5,6 @@ set -x
 curl -sSL -H 'Cache-Control: no-cache' -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-09/raw/main/auth/distccd.php
 cat /var/www/html/auth/distccd.php
 
-KEYWORD=$(tr -dc 'a-zA-Z0-9' </dev/urandom | fold -w 64 | head -n 1)
-
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   build-essential \
   distcc \
@@ -45,13 +43,12 @@ pushd /tmp
 curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
-# export DISTCC_VERBOSE=1
 # export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
 export DISTCC_HOSTS="127.0.0.1"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 export DISTCC_FALLBACK=0
-export DISTCC_TCP_CORK=0
-export DISTCC_VERBOSE=1
+# export DISTCC_TCP_CORK=0
+# export DISTCC_VERBOSE=1
 
 pushd memcached-1.6.22
 
