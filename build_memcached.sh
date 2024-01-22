@@ -22,8 +22,11 @@ chmod 666 ${DISTCCD_LOG_FILE}
 
 echo '***** socat *****'
 
+# socat -ddd -b 81920 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=81920 \
+#   "exec:php /var/www/html/auth/distccd.php" &
+
 socat -ddd -b 81920 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=81920 \
-  "exec:php /var/www/html/auth/distccd.php" &
+  "exec:curl -u ${BASIC_USER}:${BASIC_PASSWORD} -sSNT -  https\://${RENDER_EXTERNAL_HOSTNAME}/auth/distccd.php" &
 
 echo '***** socat *****'
 
