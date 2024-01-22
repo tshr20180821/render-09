@@ -4,9 +4,14 @@ $pid = getmypid();
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php start");
 
-$stdin = fopen('php://stdin', 'r');
-
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
+if (php_sapi_name() === 'cli' || defined('STDIN'))
+{
+    $stdin = fopen('php://stdin', 'r');
+    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010 CLI");
+} else {
+    $stdin = fopen('php://input', 'r');
+    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010 NON-CLI");
+}
 
 $data = [];
 $count_zero = 0;
