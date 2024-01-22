@@ -4,14 +4,8 @@ $pid = getmypid();
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php start");
 
-if (php_sapi_name() === 'cli' || defined('STDIN'))
-{
-    $stdin = fopen('php://stdin', 'r');
-    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010 CLI");
-} else {
-    $stdin = fopen('php://input', 'r');
-    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010 NON-CLI");
-}
+$stdin = fopen('php://stdin', 'r');
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
 
 $data = [];
 $count_zero = 0;
@@ -24,10 +18,10 @@ while (true) {
     $line_number++;
 
     if (stream_select($read, $write, $except, $timeout)) {
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
+        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
         $buffer = fgets($stdin);
         $data[] = $buffer;
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . strlen($buffer));
+        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . strlen($buffer));
         if (strlen($buffer) == 0) {
             if ($count_zero++ > 50) {
                 break;
