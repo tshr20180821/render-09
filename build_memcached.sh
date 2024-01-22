@@ -2,8 +2,8 @@
 
 set -x
 
-curl -sSL -H 'Cache-Control: no-cache' -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-09/raw/main/auth/distccd.php
-cat /var/www/html/auth/distccd.php
+curl -sSL -H 'Cache-Control: no-cache' -o /var/www/html/auth/distccd.php https://github.com/tshr20180821/render-09/raw/main/auth/send.php
+cat /var/www/html/auth/send.php
 
 DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends \
   build-essential \
