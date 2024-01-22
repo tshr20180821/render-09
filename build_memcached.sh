@@ -44,7 +44,7 @@ curl -sSO https://memcached.org/files/memcached-1.6.22.tar.gz
 tar xf memcached-1.6.22.tar.gz
 
 # export DISTCC_HOSTS="127.0.0.1/1,cpp,lzo localhost/1"
-export DISTCC_HOSTS="127.0.0.1,lzo"
+export DISTCC_HOSTS="127.0.0.1"
 export DISTCC_POTENTIAL_HOSTS="${DISTCC_HOSTS}"
 export DISTCC_FALLBACK=0
 # export DISTCC_TCP_CORK=0
