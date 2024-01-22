@@ -51,7 +51,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode(i
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 064");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 065");
-curl_setopt($ch, CURLOPT_USERPWD, base64_encode(getenv('BASIC_USER') . ':' . getenv('BASIC_PASSWORD')));
+curl_setopt($ch, CURLOPT_USERPWD, getenv('BASIC_USER') . ':' . getenv('BASIC_PASSWORD'));
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 070");
 
