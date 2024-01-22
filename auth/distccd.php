@@ -4,57 +4,26 @@ $pid = getmypid();
 
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php start");
 
-$stdin = fopen('php://stdin', 'r');
+$data = $_POST['data'];
+
 error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 010");
 
-$data = [];
-$count_zero = 0;
-$line_number = 0;
-
-for (;;) {
-    $read = array($stdin);
-    $write = $except = array();
-    $timeout = 5;
-    $line_number++;
-
-    if (stream_select($read, $write, $except, $timeout)) {
-        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 020");
-        $buffer = fgets($stdin);
-        $data[] = $buffer;
-        // error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 030 " . strlen($buffer));
-        if (strlen($buffer) == 0) {
-            if ($count_zero++ > 50) {
-                error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040");
-                break;
-            }
-        } else {
-            $count_zero = 0;
-        }
-    } else {
-        error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 050");
-        break;
-    }
-}
-
-error_log(date("Y-m-d H:i:s") . " ${pid} ${line_number} distccd.php check point 060 " . strlen(implode('', $data)));
-
-// error_log(strlen(implode("\r\n", $data)));
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 020");
 
 $rc = socket_connect($socket, '127.0.0.1', 13632);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080 " . $rc);
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 030 " . $rc);
 
-$rc = socket_write($socket, implode('', $data));
+$rc = socket_write($socket, base64_decode($data));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 090 " . $rc);
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 040 " . $rc);
 
 $res = '';
 for (;;) {
-    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 100");
+    error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 050");
     $buffer = socket_read($socket, 8192);
     if (strlen($buffer) === 0) {
         break;
@@ -62,14 +31,14 @@ for (;;) {
     $res .= $buffer;
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 110 " . strlen($res));
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 060 " . strlen($res));
 
 socket_close($socket);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 120");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 070");
 
-header('Content-Type: binary/octet-stream');
+header('Content-Type: text/plain');
 
-error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 130");
+error_log(date("Y-m-d H:i:s") . " ${pid} distccd.php check point 080");
 
-echo $res;
+echo base64_encode($res);
