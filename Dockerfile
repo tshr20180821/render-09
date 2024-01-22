@@ -12,8 +12,10 @@ RUN set -x \
  && apt-get -qq update \
  && DEBIAN_FRONTEND=noninteractive apt-get -q install -y --no-install-recommends \
   build-essential \
+  curl \
   distcc \
   gcc-x86-64-linux-gnu \
+  iproute2 \
   libmemcached-dev \
   libsasl2-modules \
   libssl-dev \
@@ -28,7 +30,10 @@ RUN set -x \
  && docker-php-ext-enable \
   igbinary \
   memcached \
- && docker-php-ext-install sockets \
+  >/dev/null \
+ && docker-php-ext-install \
+  sockets  \
+  >/dev/null \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 COPY --chmod=755 ./app/*.sh ./
@@ -36,4 +41,4 @@ COPY ./auth/*.php /var/www/html/auth/
 
 STOPSIGNAL SIGWINCH
 
-ENTRYPOINT ["/bin/bash","/usr/src/app/start_pre.sh"]
+ENTRYPOINT ["/bin/bash","/usr/src/app/start.sh"]
