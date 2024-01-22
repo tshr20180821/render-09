@@ -40,10 +40,17 @@ for (;;) {
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 060 " . strlen(implode('', $data)));
 
 $ch = curl_init();
+
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 061");
+
 curl_setopt($ch, CURLOPT_URL, 'https://' . getenv('RENDER_EXTERNAL_HOSTNAME') . '/auth/crond.php');
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 062");
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $http_build_query(['data' => base64_encode(implode('', $data))]));
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 063");
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode(implode('', $data))]));
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 064");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 065");
 curl_setopt($ch, CURLOPT_USERPWD, base64_encode(getenv('BASIC_USER') . ':' . getenv('BASIC_PASSWORD')));
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 070");
