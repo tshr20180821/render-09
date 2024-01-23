@@ -65,53 +65,53 @@ for (;;) {
             break;
         } else {
             $mc->decrement('DISTCCD_URL_' . $distccd);
-            error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 95 " . $distccd);
+            error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 100 " . $distccd);
         }
     }
     if ($target != '') {
         break;
     }
     sleep(3);
-    error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 100");
+    error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 110");
 }
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 110 ${target}");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 120 ${target}");
 
 $ch = curl_init();
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 120");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 130");
 
 curl_setopt($ch, CURLOPT_URL, $target);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode($request_data)]));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 130");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 140");
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_USERPWD, getenv('BASIC_USER') . ':' . getenv('BASIC_PASSWORD'));
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 140");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 150");
 
 $res = curl_exec($ch);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 150 " . strlen($res));
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 160 " . strlen($res));
 
 $http_code = (string)curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 160 ${http_code}");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 170 ${http_code}");
 
 curl_close($ch);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 170");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 180");
 
 $rc = $mc->decrement('DISTCCD_URL_' . $target);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 180 ${rc}");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 190 ${rc}");
 
 $mc->quit();
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 190");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 200");
 
 echo base64_decode($res);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 200");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 210");
