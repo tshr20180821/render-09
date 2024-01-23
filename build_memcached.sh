@@ -28,7 +28,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j4
+time MAKEFLAGS="CC=distcc\ gcc" make -j6
 
 popd
 popd
