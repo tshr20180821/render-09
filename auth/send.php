@@ -60,7 +60,7 @@ if ($target == '') {
     foreach ($distccds as &$distccd) {
         error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 090 ${distccd}");
         $mc->increment('DISTCCD_URL_' . $distccd, 1, 1, 60 * 5);
-        if ($mc->get('DISTCCD_URL_' . $distccd) < 3) {
+        if ($mc->get('DISTCCD_URL_' . $distccd) < 4) {
             $target = $distccd;
             break;
         } else {
