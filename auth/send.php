@@ -65,6 +65,7 @@ if ($target == '') {
             break;
         } else {
             $mc->decrement('DISTCCD_URL_' . $distccd);
+            error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 95 " . $distccd);
         }
     }
     sleep(3);
