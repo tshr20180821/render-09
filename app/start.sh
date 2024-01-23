@@ -28,6 +28,8 @@ a2enmod \
 curl -sSL -H 'Cache-Control: no-cache' -o /etc/apache2/sites-enabled/apache.conf https://raw.githubusercontent.com/tshr20180821/render-09/main/apache.conf
 cat /etc/apache2/sites-enabled/apache.conf
 
+echo "ServerName ${RENDER_EXTERNAL_HOSTNAME}" >/etc/apache2/sites-enabled/server_name.conf
+
 htpasswd -c -b /var/www/html/.htpasswd "${BASIC_USER}" "${BASIC_PASSWORD}"
 chmod 644 /var/www/html/.htpasswd
 . /etc/apache2/envvars >/dev/null 2>&1
