@@ -56,7 +56,7 @@ $target = '';
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 080 " . count($distccds));
 
-if ($target == '') {
+for (;;) {
     foreach ($distccds as &$distccd) {
         error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 090 ${distccd}");
         $mc->increment('DISTCCD_URL_' . $distccd, 1, 1, 60 * 5);
@@ -67,6 +67,9 @@ if ($target == '') {
             $mc->decrement('DISTCCD_URL_' . $distccd);
             error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 95 " . $distccd);
         }
+    }
+    if ($target != '') {
+        break;
     }
     sleep(3);
     error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 100");
