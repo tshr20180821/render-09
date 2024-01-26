@@ -2,6 +2,9 @@
 
 set -x
 
+echo "TEST" >/tmp/test.txt
+gzip -c /tmp/test.txt | curl -X POST --data-binary @- -H "Content-Encoding: gzip" -u ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/test20240126.php
+
 socat -d -b 81920 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=81920 \
   "exec:php /var/www/html/auth/send.php" &
 
