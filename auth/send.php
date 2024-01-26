@@ -76,6 +76,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode($
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 110");
 
+curl_setopt($ch, CURLOPT_ENCODING, '');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_USERPWD, getenv('BASIC_USER') . ':' . getenv('BASIC_PASSWORD'));
 
@@ -95,7 +96,7 @@ error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 150");
 
 $rc = $mc->decrement('DISTCCD_URL_' . $target);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 160 ${rc}");
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 160 ${rc} ${target}");
 
 $mc->quit();
 
