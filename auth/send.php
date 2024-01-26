@@ -39,7 +39,7 @@ for (;;) {
 
 $request_data = implode('', $data);
 
-error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 060 " . strlen($request_data));
+error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 060 " . strlen($request_data) . " ${count_zero}");
 
 $mc = new Memcached('pool');
 if (count($mc->getServerList()) == 0) {
