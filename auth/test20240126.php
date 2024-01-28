@@ -4,4 +4,4 @@ $pid = getmypid();
 
 $data = file_get_contents("php://input");
 
-echo $data;
+echo gzdecode($data);
