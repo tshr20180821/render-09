@@ -72,7 +72,8 @@ error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 100");
 
 curl_setopt($ch, CURLOPT_URL, $target);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode($request_data)]));
+// curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['data' => base64_encode(gzencode($request_data))]));
+curl_setopt($ch, CURLOPT_POSTFIELDS, gzencode($request_data));
 
 error_log(date("Y-m-d H:i:s") . " ${pid} send.php check point 110");
 
