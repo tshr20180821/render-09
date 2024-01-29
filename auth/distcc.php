@@ -11,7 +11,7 @@ error_log(date("Y-m-d H:i:s") . " ${pid} distcc.php check point 010");
 $data = [];
 $line_number = 0;
 $write = $except = null;
-$timeout = 5;
+$timeout = 3;
 
 for (;;) {
     $read = array($stdin);
