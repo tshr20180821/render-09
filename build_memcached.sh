@@ -2,11 +2,16 @@
 
 set -x
 
-echo "TEST" >/tmp/test.txt
-gzip -c /tmp/test.txt | curl -v -X POST --data-binary @- -H "Content-Encoding: gzip" -u ${BASIC_USER}:${BASIC_PASSWORD} https://${RENDER_EXTERNAL_HOSTNAME}/auth/test20240126.php
+# distccd
 
-socat -d -b 81920 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork,sndbuf=81920 \
-  "exec:php /var/www/html/auth/send.php" &
+DISTCCD_LOG_FILE=/var/www/html/auth/distccd_log.txt
+touch ${DISTCCD_LOG_FILE}
+chmod 666 ${DISTCCD_LOG_FILE}
+
+/usr/bin/distccd --port=13632 --listen=127.0.0.1 --user=nobody --jobs=4 --log-level=debug --log-file=${DISTCCD_LOG_FILE} --daemon --stats --stats-port=3633 --allow-private --job-lifetime=180
+
+socat -d -b 81920 tcp-listen:3632,bind=127.0.0.1,reuseaddr,fork \
+  "exec:php /var/www/html/auth/distcc.php" &
 
 sleep 3s
 ss -anpt
@@ -31,7 +36,7 @@ pushd memcached-1.6.22
 
 ./configure --disable-docs >/dev/null
 
-time MAKEFLAGS="CC=distcc\ gcc" make -j6
+time MAKEFLAGS="CC=distcc\ gcc" make -j3
 
 popd
 popd
