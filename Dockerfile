@@ -17,6 +17,7 @@ RUN set -x \
   gcc-x86-64-linux-gnu \
   iproute2 \
   libmemcached-dev \
+  libpq-dev \
   libsasl2-modules \
   libssl-dev \
   memcached \
@@ -30,6 +31,7 @@ RUN set -x \
  && docker-php-ext-enable \
   igbinary \
   memcached \
+  pdo_pgsql \
   >/dev/null \
  && docker-php-ext-install \
   sockets  \
