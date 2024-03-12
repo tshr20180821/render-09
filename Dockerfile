@@ -31,9 +31,9 @@ RUN set -x \
  && docker-php-ext-enable \
   igbinary \
   memcached \
-  pdo_pgsql \
   >/dev/null \
  && docker-php-ext-install \
+  pdo_pgsql \
   sockets  \
   >/dev/null \
  && ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
