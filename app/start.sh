@@ -17,11 +17,11 @@ memcached --enable-sasl -v -l "${MEMCACHED_SERVER}" -P "${MEMCACHED_PORT}" -B bi
 
 # build script
 
-curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/build_memcached.sh
+# curl -sSL -H 'Cache-Control: no-cache' -O https://github.com/tshr20180821/render-09/raw/main/build_memcached.sh
 
-cat /usr/src/app/build_memcached.sh
-chmod +x /usr/src/app/build_memcached.sh
-sleep 10s && /usr/src/app/build_memcached.sh &
+# cat /usr/src/app/build_memcached.sh
+# chmod +x /usr/src/app/build_memcached.sh
+# sleep 10s && /usr/src/app/build_memcached.sh &
 
 # apache setting
 
