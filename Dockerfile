@@ -32,7 +32,7 @@ RUN set -x \
   igbinary \
   memcached \
   >/dev/null \
- && docker-php-ext-install \
+ && docker-php-ext-install -j$(nproc) \
   pdo_pgsql \
   sockets  \
   >/dev/null \
